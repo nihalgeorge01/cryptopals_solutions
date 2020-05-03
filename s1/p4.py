@@ -1,56 +1,55 @@
 ## S1C4 - Detecting a single byte XOR cipher among random character snippets
 
-import sys
+from p3 import single_char_xor, get_english_score, character_frequencies
 
-character_frequencies = {
-        'a': .08167, 'b': .01492, 'c': .02782, 'd': .04253, 'e': .12702, 'f': .02228, 'g': .02015, 'h': .06094,
-        'i': .06094, 'j': .00153, 'k': .00772, 'l': .04025, 'm': .02406, 'n': .06749, 'o': .07507, 'p': .01929,
-        'q': .00095, 'r': .05987, 's': .06327, 't': .09056, 'u': .02758, 'v': .00978, 'w': .02360, 'x': .00150,
-        'y': .01974, 'z': .00074, ' ': .13000
-}
+def detect_single_byte_xor(ciph_lst):
+    '''
+    Detect the ciphertext most probably encrypted using single byte XOR
 
-def single_char_xor(input_bytes, char_val):
-    output_bytes = b''
-    for byte in input_bytes:
-        output_bytes += bytes([byte ^ char_val])
-    return output_bytes
+    Inputs
 
-def get_english_score(input_bytes):
+        ciph_lst - list(bytestring) - List of ciphertexts
 
-    global character_frequencies
-    return sum([character_frequencies.get(chr(byte), 0) for byte in input_bytes.lower()])
+    Outputs
 
-def main():
-    sys.stdin = open("p4_in.txt", 'r')
+        best_score - list()
+    '''
 
     max_score = -256
-    for entry in range(327):
+    for entry in range(len(ciph_lst)): # Iterate over all ciphertexts
 
-        cipher = input()
-        b_cipher = bytes.fromhex(cipher)
+        b_cipher = ciph_lst[entry]
     
         potent = []
         best_score_here = -256
     
-        for j in range(256):
+        for j in range(256): # Break each ciphertext and score with letter frequency analysis
             b_xor_msg = single_char_xor(b_cipher, j)
             score = get_english_score(b_xor_msg)
             data = {'message':b_xor_msg, 'score':score, 'key':j}
-            if score > best_score_here:
+            if score > best_score_here: # Store the top scoring key and its params
                 best_score_here = score
                 best_data = data
     
         best_score = best_data
-        if best_score['score'] > max_score:
+        if best_score['score'] > max_score: # If current message is best, store it
             max_score = best_score['score']
             max_msg = best_score['message']
             max_entry = entry
             max_key = best_score['key']
 
-    print("Best message: ", max_msg)
-    print("Score: ", max_score)
-    print("Entry index: ", max_entry)
-    print("Key: ", chr(max_key))
+    best_score = [max_msg, max_score, max_entry, max_key]
+    return best_score
+
+def main():
+    ciph_lst = [bytes.fromhex(line.strip()) for line in open("p4_in.txt")]
+    best_score = detect_single_byte_xor(ciph_lst)
+
+    print("Best message: ", best_score[0])
+    print("Score: ", best_score[1])
+    print("Entry index: ", best_score[2])
+    print("Key: ", chr(best_score[3]))
+
 
 if __name__ == "__main__":
     main()

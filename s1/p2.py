@@ -3,6 +3,14 @@
 import base64
 
 def byte_xor(ba1, ba2):
+    '''
+    Returns the bitwise XOR of two equal length buffers
+
+    Inputs
+
+        ba1 - bytestring - First bytestring
+        ba2 - bytestring - Second bytestring
+    '''
     return bytes([_a ^ _b for _a, _b in zip(ba1, ba2)])
 
 def main():
