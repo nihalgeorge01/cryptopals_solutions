@@ -1,4 +1,4 @@
-## S1C3 - Breaking Single Byte XOR Cipher
+## S1C03 - Breaking Single Byte XOR Cipher
 
 # From https://en.wikipedia.org/wiki/Letter_frequency
 character_frequencies = {

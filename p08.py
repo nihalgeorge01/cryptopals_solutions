@@ -1,4 +1,4 @@
-## S1C8 - Detecting AES-ECB
+## S1C08 - Detecting AES-ECB
 
 from Crypto.Cipher.AES import block_size
 
@@ -41,7 +41,7 @@ def detect_aes_ecb(ciph_lst):
     return best
 
 def main():
-    ciph_lst = [bytes.fromhex(line.strip()) for line in open("p8_in.txt")]
+    ciph_lst = [bytes.fromhex(line.strip()) for line in open("p08_in.txt")]
     result = detect_aes_ecb(ciph_lst)
     print("Detected probable AES-ECB ciphertext at position", result[0], "with", result[1], "repetitions")
 

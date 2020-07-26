@@ -1,4 +1,4 @@
-## S1C2 - Fixed XOR of two equal length buffers
+## S1C02 - Fixed XOR of two equal length buffers
 
 import base64
 

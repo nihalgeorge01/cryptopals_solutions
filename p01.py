@@ -1,4 +1,4 @@
-## S1C1 - Convert hex to base64
+## S1C01 - Convert hex to base64
 
 import base64
 

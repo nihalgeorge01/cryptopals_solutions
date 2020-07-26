@@ -1,9 +1,9 @@
-## S1C6 - Breaking Repeating Key XOR
+## S1C06 - Breaking Repeating Key XOR
 
 import base64
 from itertools import combinations
-from p5 import rep_key_xor
-from p3 import single_byte_xor_break, single_char_xor, get_english_score
+from p05 import rep_key_xor
+from p03 import single_byte_xor_break, single_char_xor, get_english_score
     
 def hamming(a, b):
     '''
@@ -59,8 +59,6 @@ def guess_key_length(ciph, lo, hi):
 
         top_lens - int - top 3 most probable key lengths
     '''
-
-    key_dist = []
 
     assert lo <= len(ciph)//2, "Lower limit of key length too high"
 
@@ -135,7 +133,7 @@ def break_repeating_key_xor(ciph, lo, hi):
      
 def main():
     
-    with open("p6_in.txt") as input_file:
+    with open("p06_in.txt") as input_file:
         cipher = input_file.read()
  
     b_cipher = b64_to_bytes(cipher)

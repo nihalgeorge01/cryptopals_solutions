@@ -1,6 +1,6 @@
-## S1C5 - Repeating key XOR implementation
+## S1C05 - Repeating key XOR implementation
 
-from p2 import byte_xor
+from p02 import byte_xor
 
 def rep_key_xor(msg, key):
     '''
